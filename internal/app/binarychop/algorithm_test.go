@@ -44,6 +44,14 @@ func findExpectedResult(value int) int {
 	return ExpectedResult[value]
 }
 
+func createIntSlice(n int) []int {
+	ints := make([]int, n)
+	for index := 0; index < n; index++ {
+		ints[index] = index
+	}
+	return ints
+}
+
 // GeneralTestInterfaceImplementation is a test template for Algorithm implementation.
 // Every implementation of the Algorithm interface should trigger this test.
 // Its purpose is to test the implementation without wrapper

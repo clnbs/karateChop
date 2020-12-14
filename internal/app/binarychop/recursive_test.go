@@ -7,14 +7,6 @@ import (
 	"github.com/clnbs/karateChop/internal/pkg/mathtool"
 )
 
-func createIntSlice(n int) []int {
-	ints := make([]int, n)
-	for index := 0; index < n; index++ {
-		ints[index] = index
-	}
-	return ints
-}
-
 // TestRecursive_BinaryChop trigger test for recursive algorithm without Algorithm interface
 func TestRecursive_BinaryChop(t *testing.T) {
 	GeneralTestInterfaceImplementation(&Recursive{}, t)
