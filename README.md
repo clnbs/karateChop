@@ -37,20 +37,20 @@ cd kararteChop
 ```
 make all
 ```
-With command should create a binary for each implementation 
+This command should create a binary for each implementation 
  
 ## Usage
 
 ### Start tests
-Tests are trigger in a Docker environment in order to be compliant with the compilation environment. Tests can be easily done using the Makefile : 
+Tests are trigger in a Docker environment in order to be compliant with the compilation and development environment. Tests can be easily done using the Makefile : 
 ```bash
 make testing
 ```
 
-This command will start all static tests and create an HTML file named `cover.html` in the root directory of this project. Open it with your favorite web browser.
+This command will start all statics tests and create an HTML file named `cover.html` in the root directory of this project. You can open it with your favorite web browser.
 
 ### Start each implementation
-For each implementation, you can start a specific binary in the form `<implementation_name>.bin` at the root directory of this project. To start a binary, you can simply run e.g :
+For each implementation, you can start a specific binary in the form `<implementation_name>.bin` at the root directory of this project. To start a binary, you can simply run it, e.g :
 ```bash
 ./recursive.bin
 ```
@@ -69,3 +69,4 @@ Project Link: [https://github.com/clnbs/karateChop](https://github.com/clnbs/kar
 
 * [Code Kata](http://codekata.com/)
 * [Cycloid.io](https://www.cycloid.io/)
+* [Golang testify from stretchr](https://github.com/stretchr/testify)
