@@ -11,6 +11,7 @@ Implementation of Code Kata02 exercice. Link to the challenge [here](http://code
 * [Usage](#usage)
   * [Start tests](#start-tests)
   * [Start each implementation](#start-each-implementation)
+* [TODO list](#todo-list)
 * [License](#license)
 * [Contact](#contact)
 * [Acknowledgements](#acknowledgements)
@@ -54,6 +55,10 @@ For each implementation, you can start a specific binary in the form `<implement
 ```bash
 ./recursive.bin
 ```
+
+## TODO list
+ - missing 3 out of 5 implementations
+ - missing build target for iterative implementation
 
 ## License
 
