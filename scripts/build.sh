@@ -44,13 +44,39 @@ build_recursive() {
   check_command_success $RESULT 0 "Could not remove builder container"
 }
 
+build_iterative() {
+  green echo "Start building binary chop iterative container"
+  docker build -t iterative:build . -f ./build/package/iterative/Dockerfile
+  RESULT=$?
+  check_command_success $RESULT 0 "Could not build binary chop recursive container"
+
+  green echo "Creating container to build binary chop recursive"
+  docker container create --name extract iterative:build
+  RESULT=$?
+  check_command_success $RESULT 0 "Could not start builder container"
+
+  green echo "Extracting binary from builder container"
+  docker container cp extract:/go/src/github.com/clnbs/karateChop/iterative.bin ./iterative.bin
+  RESULT=$?
+  check_command_success $RESULT 0 "Could not extract binary from builder image"
+
+  green echo "Deleting builder container"
+  docker container rm -f extract
+  RESULT=$?
+  check_command_success $RESULT 0 "Could not remove builder container"
+}
+
 OPTION=$1
 
 if [ -z "$OPTION"  ]; then
   green echo "Compiling all implementation"
   build_recursive
+  build_iterative
   exit 0
 elif [[ "$OPTION" == "recursive" ]]; then
   green echo "Compiling recursive implementation"
   build_recursive
+elif [[ "$OPTION" == "iterative" ]]; then
+  green echo "Compiling iterative implementation"
+  build_iterative
 fi
