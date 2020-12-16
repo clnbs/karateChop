@@ -13,7 +13,7 @@ func (recursive *Recursive) BinaryChop(value int, tab []int) int {
 // This binary chop algorithm use recursion
 func recursiveBinaryChop(value int, tab []int, lowIndex, highIndex int) int {
 	middleIndex := ((highIndex - lowIndex) / 2) + lowIndex
-	// Ending condition : success
+	// Ending condition : success, value found
 	if tab[middleIndex] == value {
 		return middleIndex
 	}
