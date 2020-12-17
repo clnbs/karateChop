@@ -6,7 +6,7 @@ help:
 
 .DEFAULT_GOAL := help
 
-all: recursive iterative ## Compile all implementation of binary chop
+all: recursive iterative tree ## Compile all implementation of binary chop
 
 testing: ## Start all static test for this project and create a coverage file in HTML
 	bash scripts/test.sh
@@ -16,3 +16,6 @@ recursive: ## Compile Recursive implementation of binary chop
 
 iterative: ## Compile iterative implementation of binary chop
 	bash scripts/build.sh iterative
+
+tree: ## Compile binary tree implementation of binary chop
+	bash scripts/build.sh tree
