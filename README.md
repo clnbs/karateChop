@@ -57,8 +57,8 @@ For each implementation, you can start a specific binary in the form `<implement
 ```
 
 ## TODO list
- - missing 3 out of 5 implementations
- - missing build target for iterative implementation
+ - missing 2 out of 5 implementations
+ - better testing code
 
 ## License
 
