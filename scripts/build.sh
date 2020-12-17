@@ -30,7 +30,7 @@ build_from_docker() {
   RESULT=$?
   check_command_success $RESULT 0 "Could not build binary chop ${build_target} container"
 
-  green echo "Creating container to build binary chop recursive"
+  green echo "Creating container to build binary chop ${build_target}"
   docker container create --name extract "${build_target}":build
   RESULT=$?
   check_command_success $RESULT 0 "Could not start builder container"
