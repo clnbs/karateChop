@@ -56,6 +56,14 @@ For each implementation, you can start a specific binary in the form `<implement
 ./recursive.bin
 ```
 
+There are three implementations : 
+ - recursive simply named `recursive`
+ - iterative simply named `iterative`
+ - using a binary tree simply name `tree`
+
+## TODO list
+- Benchmarking for all solutions
+
 ## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
