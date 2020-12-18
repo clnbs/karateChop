@@ -2,22 +2,16 @@ package binarychop
 
 import (
 	"fmt"
-	"math/rand"
-	"sort"
-	"testing"
-	"time"
-
 	"github.com/stretchr/testify/assert"
+	"testing"
 )
 
-var (
-	// Values is a int slice used for testing purpose
-	Values = []int{-4, -2, -1, 0, 2, 5, 7, 10, 11, 12, 15, 25}
-	// ShuffledValues is a copy of Values but shuffled for testing purpose
-	ShuffledValues = make([]int, len(Values))
-	// ExpectedResult map a value contains in Values to its index in order to find result easily
-	ExpectedResult = map[int]int{}
-)
+//
+type TestCase struct {
+	input      []int
+	lookingFor int
+	expected   int
+}
 
 // AlgorithmMock is a dumb mock to test Algorithm interface with dep injection
 type AlgorithmMock struct{}
@@ -25,23 +19,6 @@ type AlgorithmMock struct{}
 // BinaryChop : interface implementation, return the value passed in argument
 func (algoMock *AlgorithmMock) BinaryChop(value int, _ []int) int {
 	return value
-}
-
-func init() {
-	sort.Ints(Values)
-	copy(ShuffledValues, Values)
-	for index, value := range Values {
-		ExpectedResult[value] = index
-	}
-	rand.Seed(time.Now().UnixNano())
-	rand.Shuffle(len(ShuffledValues), func(i, j int) { ShuffledValues[i], ShuffledValues[j] = ShuffledValues[j], ShuffledValues[i] })
-}
-
-func findExpectedResult(value int) int {
-	if _, ok := ExpectedResult[value]; !ok {
-		return -1
-	}
-	return ExpectedResult[value]
 }
 
 func createIntSlice(n int) []int {
@@ -56,10 +33,30 @@ func createIntSlice(n int) []int {
 // Every implementation of the Algorithm interface should trigger this test.
 // Its purpose is to test the implementation without wrapper
 func GeneralTestInterfaceImplementation(algo Algorithm, t *testing.T) {
-	lowestValue, highestValue := Values[0], Values[len(Values)-1]
-	for testingValue := lowestValue; testingValue <= highestValue; testingValue++ {
-		expectedResult := findExpectedResult(testingValue)
-		assert.Equal(t, expectedResult, algo.BinaryChop(testingValue, Values))
+	testCases := []TestCase{
+		{
+			input:      []int{-4, -2, -1, 0, 2, 5, 7, 10, 11, 12, 15, 25},
+			lookingFor: 5,
+			expected:   5,
+		},
+		{
+			input:      []int{-4, -2, -1, 0, 2, 5, 7, 10, 11, 12, 15, 25},
+			lookingFor: -4,
+			expected:   0,
+		},
+		{
+			input:      []int{-4, -2, -1, 0, 2, 5, 7, 10, 11, 12, 15, 25},
+			lookingFor: 12,
+			expected:   9,
+		},
+		{
+			input:      []int{-4, -2, -1, 0, 2, 5, 7, 10, 11, 12, 15, 25},
+			lookingFor: 100,
+			expected:   -1,
+		},
+	}
+	for _, test := range testCases {
+		assert.Equal(t, test.expected, algo.BinaryChop(test.lookingFor, test.input))
 	}
 }
 
@@ -67,14 +64,32 @@ func GeneralTestInterfaceImplementation(algo Algorithm, t *testing.T) {
 // Every implementation of the Algorithm interface should trigger this test.
 // Its purpose is to test random value in a shuffled int slice using a wrapper
 func ShuffleGeneralTestInterface(algo Algorithm, t *testing.T) {
+	testCases := []TestCase{
+		{
+			input:      []int{0, -2, 7, 11, -4, 10, 15, 12, -1, 2, 25, 5},
+			lookingFor: 5,
+			expected:   5,
+		},
+		{
+			input:      []int{-4, -2, -1, 0, 2, 5, 7, 10, 11, 12, 15, 25},
+			lookingFor: -4,
+			expected:   0,
+		},
+		{
+			input:      []int{-4, -2, -1, 0, 2, 5, 7, 10, 11, 12, 15, 25},
+			lookingFor: 12,
+			expected:   9,
+		},
+		{
+			input:      []int{-4, -2, -1, 0, 2, 5, 7, 10, 11, 12, 15, 25},
+			lookingFor: 100,
+			expected:   -1,
+		},
+	}
 	chop := NewBinaryChop(algo)
-	testingValue := 12
-	expectedValue := findExpectedResult(testingValue)
-	assert.Equal(t, expectedValue, chop.Execute(testingValue, ShuffledValues))
-
-	testingValue = -3
-	expectedValue = findExpectedResult(testingValue)
-	assert.Equal(t, expectedValue, chop.Execute(testingValue, ShuffledValues))
+	for _, test := range testCases {
+		assert.Equal(t, test.expected, chop.Execute(test.lookingFor, test.input))
+	}
 }
 
 // GeneralTestInterface is a test template for Algorithm implementation.
