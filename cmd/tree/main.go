@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/clnbs/karateChop/internal/app/binarychop"
 )
 
