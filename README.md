@@ -59,7 +59,7 @@ For each implementation, you can start a specific binary in the form `<implement
 There are three implementations : 
  - recursive simply named `recursive`
  - iterative simply named `iterative`
- - using a binary tree simply name `tree`
+ - using a binary tree simply named `tree`
 
 ## TODO list
 - Benchmarking for all solutions
